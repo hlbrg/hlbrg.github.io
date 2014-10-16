@@ -1,0 +1,131 @@
+/* latin-ext */
+		@font-face {
+		  font-family: 'Lato';
+		  font-style: normal;
+		  font-weight: 300;
+		  src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/IY9HZVvI1cMoAHxvl0w9LVKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+		  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		@font-face {
+		  font-family: 'Lato';
+		  font-style: normal;
+		  font-weight: 300;
+		  src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/22JRxvfANxSmnAhzbFH8PlKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+		  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+		}
+
+		body{
+			text-align: center;
+			color: #fff;
+			background: #4285f4;
+			
+		}
+
+		.wrapper{
+			position: relative;
+			font-family: 'Lato', sans-serif;
+		}
+
+		.hyphen{
+		font-size: 40rem;
+		cursor: pointer;		
+		}
+
+		.score{
+		font-size: 40rem;
+		cursor: pointer;
+		}
+
+		a{
+			text-decoration: none !important;
+			color: #fff;
+		}
+
+		a:hover{
+			color: #fff;
+		}
+
+		a:active{
+			color: #EBF2FC !important;
+		}
+
+		a:visited{
+			color: #fff;
+		}
+
+		.team-letter{
+			font-size: 7rem;
+			position: absolute;
+			top: 40%;
+			cursor: pointer;
+		}
+		.h{
+			left: 3%;
+		}
+		.a{
+			right: 3%;
+		}
+		
+		#startButton{
+			font-size: 5rem;
+			position: absolute;
+			bottom: 50px;
+			left: 0;
+			right: 0;
+			bottom: 90px;
+		}
+		
+		#mtimer{
+			font-size: 8rem;
+			position: relative;
+			top: 15px;
+			cursor: default;
+		}
+		
+		.chart{
+			position: relative;
+			bottom: 180px;
+
+		}
+
+		.max-height{
+			height: 650px
+		}
+
+		.stopBtn{
+			border-radius: 50%;
+			border: 3px solid white;
+			height: 70px;
+			width: 70px;
+			position: absolute;
+			right: -45px;
+			bottom: 95px;
+			display: none;
+			cursor: pointer;
+		}
+
+		.stopBtn span{
+			position: absolute;
+			top: 23px;
+			left: 15px;
+			cursor: pointer;
+		}
+
+		.date-div{
+			text-align: center;
+			text-transform: uppercase;
+			position: absolute;
+			top: 80px;
+			left: 0;
+			right: 0;
+			font-size: x-large;
+		}
+		
+		.date-div span:first-child{
+			font-size: medium;
+		}
+
+		.date-div span:last-child{
+
+		}
