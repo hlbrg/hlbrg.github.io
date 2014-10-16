@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- RESOURCES -->
+		<!-- jQuery 2.1.1 -->
+		<script src="jquery-2.1.1.min.js"></script>
+		<link rel="stylesheet" href="normalize.css">
+		<!-- Bootstrap 3.0 CSS -->
+		<link href="bootstrap.min.css" rel="stylesheet">
+		<!-- my scripts -->
+		<script src="app.js"></script>
+		<script src="audio.js"></script>
+		
+		<!-- sweet alert -->
+		<script src="sweet-alert.js"></script> 
+		<link rel="stylesheet" type="text/css" href="sweet-alert.css">
+
+		<!-- http://harshen.github.io/jquery-countdownTimer/ -->
+		<script type="text/javascript" src="jquery.countdownTimer.js"></script>
+		<!-- <link rel="stylesheet" type="text/css" href="jquery.countdownTimer.css"/> -->
+		
+		<!-- easy-pie-chart -->
+		<script src="jquery.easypiechart.js"></script>
+
+		<!-- styles -->
+		<!-- google font -->
+		<!-- <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'> -->
+		<style>
+		/* latin-ext */
+		@font-face {
+		  font-family: 'Lato';
+		  font-style: normal;
+		  font-weight: 300;
+		  src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/IY9HZVvI1cMoAHxvl0w9LVKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+		  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		@font-face {
+		  font-family: 'Lato';
+		  font-style: normal;
+		  font-weight: 300;
+		  src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/22JRxvfANxSmnAhzbFH8PlKPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+		  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+		}
+
+		body{
+			text-align: center;
+			color: #fff;
+			background: #4285f4;
+			
+		}
+
+		.wrapper{
+			position: relative;
+			font-family: 'Lato', sans-serif;
+		}
+
+		.hyphen{
+		font-size: 50rem;
+		cursor: pointer;		
+		}
+
+		.score{
+		font-size: 50rem;
+		cursor: pointer;
+		}
+
+		a{
+			text-decoration: none !important;
+			color: #fff;
+		}
+
+		a:hover{
+			color: #fff;
+		}
+
+		a:active{
+			color: #EBF2FC !important;
+		}
+
+		a:visited{
+			color: #fff;
+		}
+
+		.team-letter{
+			font-size: 7rem;
+			position: absolute;
+			top: 50%;
+			cursor: pointer;
+		}
+		.h{
+			left: 3%;
+		}
+		.a{
+			right: 3%;
+		}
+		
+		#startButton{
+			font-size: 5rem;
+			position: absolute;
+			bottom: 50px;
+			left: 0;
+			right: 0;
+			bottom: 90px;
+		}
+		
+		#mtimer{
+			font-size: 8rem;
+			position: relative;
+			top: 15px;
+			cursor: default;
+		}
+		
+		.chart{
+			position: relative;
+			bottom: 180px;
+
+		}
+
+		.max-height{
+			height: 650px
+		}
+
+		.stopBtn{
+			border-radius: 50%;
+			border: 3px solid white;
+			height: 70px;
+			width: 70px;
+			position: absolute;
+			right: -45px;
+			bottom: 95px;
+			display: none;
+			cursor: pointer;
+		}
+
+		.stopBtn span{
+			position: absolute;
+			top: 23px;
+			left: 15px;
+			cursor: pointer;
+		}
+
+		.date-div{
+			text-align: center;
+			text-transform: uppercase;
+			position: absolute;
+			top: 80px;
+			left: 0;
+			right: 0;
+			font-size: x-large;
+		}
+		
+		.date-div span:first-child{
+			font-size: medium;
+		}
+
+		.date-div span:last-child{
+
+		}
+		</style>
+	</head>
+ 	<!-- END HEAD -->
+
+ 	<!-- BODY -->
+ 	<body>
+		<div class="wrapper">
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<a href="#">
+							<div class="score home-team">
+								<span onclick="countUpHome(event)">0</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4">
+						<div class="max-height">
+							<div class="date-div">
+								<span></span>
+								<span></span>
+							</div>
+							<span class="hyphen" onclick="clearScore()">-</span>
+							<div class="chart" data-percent="100" data-scale-color="#ffb400">
+								<a href="#" id="startButton" type="btn btn-large"><span onclick="startBtnPress()">START</span></a>
+								<div class="stopBtn" onclick="restoreStartBtn()"><a href"#"><span>STOP</span></a></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<a href="#">
+							<div class="score away-team">
+								<span onclick="countUpAway(event)">0</span>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<span class="team-letter h" onclick="countDownHome(event)">H</span>
+			<span class="team-letter a" onclick="countDownAway(event)">A</span>
+		</div>
+
+	<!-- SCRIPT -->
+	<script>
+
+	var countHome = 0,
+		countAway = 0,
+		homeTeam = document.querySelectorAll('.score span')[0].innerHTML,
+    	awayTeam = document.querySelectorAll('.score span')[1].innerHTML,
+
+    	winner = "",
+    	wrapper = "";
+
+		function countUpHome(e){
+			if(countHome < 9){
+				scoreUpSound.playclip();
+				countHome += 1;
+				e.target.innerHTML = countHome;
+				return countHome
+			}
+			else{
+				var localText = "10 - " + countAway
+				swal(localText, "til hjemmeholdet!")
+				matchDone();
+			}
+			
+		}
+
+		function countDownHome(e){
+			if(countHome > 0){
+				scoreDownSound.playclip();
+				countHome -= 1;
+				document.querySelectorAll('.score span')[0].innerHTML = countHome;
+			}
+		}
+
+		function countUpAway(e){
+			if(countAway < 9){
+				scoreUpSound.playclip();
+				countAway += 1;
+				e.target.innerHTML = countAway;
+				return countAway
+			}
+			else{
+				var localText = "10 - " + countHome
+				swal(localText, "til udeholdet!")
+				matchDone()
+			}
+			
+		}
+
+		function countDownAway(e){
+			if(countAway > 0){
+				scoreDownSound.playclip();
+				countAway -= 1;
+				document.querySelectorAll('.score span')[1].innerHTML = countAway;
+			}
+		}
+
+		function clearScore(){
+			clearScoreSound.playclip();
+			document.querySelectorAll('.score span')[0].innerHTML = 0;
+			document.querySelectorAll('.score span')[1].innerHTML = 0;
+			countHome = 0;
+			countAway = 0;
+			
+		}
+		function clearScoreNoSound(){
+			document.querySelectorAll('.score span')[0].innerHTML = 0;
+			document.querySelectorAll('.score span')[1].innerHTML = 0;
+			countHome = 0;
+			countAway = 0;
+			
+		}
+
+		function matchDone(){
+			kidsSound.playclip();
+			clearScoreNoSound();
+		}
+
+		function startBtnPress(){
+		siteInitSound.playclip();
+		onTimer();
+		timesUp();
+		$('.chart').data('easyPieChart').options.animate.duration = 460000
+		$('.chart').data('easyPieChart').update(0);
+		stopBtn();
+		}
+
+		// jquery timer
+		function onTimer() {
+		  	document.getElementById('startButton').innerHTML = '<span id="mtimer" onclick="paused()"><span></div>';
+			$('#mtimer').countdowntimer({minutes:7,size:'lg'})	
+		}
+
+		function restoreStartBtn(){
+			document.querySelector('body').style.backgroundColor = '#447799'
+			stopSound.playclip();
+			
+			$('body').fadeOut('fast', function() {
+				
+			});
+			setTimeout(function(){location.reload();}, 200)
+		}
+
+		// easy-pie-chart
+		function easyPieInit(){
+            $('.chart').easyPieChart({
+			    barColor: '#fff',
+			    trackColor: '#4285f4',
+			    scaleColor: '#dfe0e0', //not showing
+			    scaleLength: 0, //not showing
+			    lineCap: 'square',
+			    lineWidth: 4,
+			    size: 250,
+			    rotate: 0,
+			    animate: {
+			      duration: 1000,
+			      enabled: true
+			    }
+            });
+
+        }
+		easyPieInit();
+
+		function stopBtn(){
+			document.querySelector('.stopBtn').style.display = 'block'
+		}
+
+
+		function timesUp(){
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 390000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 410000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 411000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 412000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 413000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 414000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 415000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 416000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 417000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 417000)
+			setTimeout(function(){
+				siteInitSound.playclip();
+			}, 417000)
+			setTimeout(function(){
+				buzzerSound.playclip();
+			}, 420000)
+		}
+
+
+		function paused(){
+			alert('PAUSED!')
+		}
+
+		function startTime() {
+		    var today=new Date();
+		    var h=today.getHours();
+		    var m=today.getMinutes();
+		    var s=today.getSeconds();
+		    m = checkTime(m);
+		    s = checkTime(s);
+		    var time = h + ":" + m + ":" + s
+		    document.querySelectorAll('.date-div span')[1].innerHTML = time;
+			
+			setTimeout(function(){startTime()},500);
+
+		    function checkTime(i) {
+			    if (i<10) {
+			    i = "0" + i
+			    };  // add zero in front of numbers < 10
+			    return i;
+			}
+		}
+
+			function startDate(){
+				var wkdays = [
+				"mandag",
+				"tirsdag",
+				"onsdag",
+				"torsdag",
+				"fredag",
+				"lørdag",
+				"søndag"]
+				var monthArray = [
+				"januar",
+				"februar",
+				"marts",
+				"april",
+				"maj",
+				"juni",
+				"juli",
+				"august",
+				"september",
+				"oktober",
+				"november",
+				"december"]
+				var dateObj = new Date();
+				var day = dateObj.getDay();
+				var dayString = wkdays[day - 1]
+				var date = dateObj.getDate()
+				var month = dateObj.getMonth()
+				var monthString = monthArray[month]
+				var year = dateObj.getFullYear();
+				var today = dayString + " " + date + ". " + monthString + " " + year + " " + "</br>"
+				document.querySelectorAll('.date-div span')[0].innerHTML = today;
+			}
+		// function checkTime(i) {
+		//     if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+		//     return i;
+		// }
+
+		window.onload = function(){
+			startPressSound.playclip();
+			startTime();
+			startDate();
+		}
+
+
+	</script>
+	<!-- END SCRIPT -->
+	</body>
+	<!-- END BODY -->
+</html>
