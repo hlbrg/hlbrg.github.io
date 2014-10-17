@@ -28,12 +28,12 @@
 		}
 
 		.hyphen{
-		font-size: 40rem;
+		font-size: 35rem;
 		cursor: pointer;		
 		}
 
 		.score{
-		font-size: 40rem;
+		font-size: 35rem;
 		cursor: pointer;
 		}
 
@@ -57,7 +57,7 @@
 		.team-letter{
 			font-size: 7rem;
 			position: absolute;
-			top: 40%;
+			top: 35%;
 			cursor: pointer;
 		}
 		.h{
@@ -70,7 +70,6 @@
 		#startButton{
 			font-size: 5rem;
 			position: absolute;
-			bottom: 50px;
 			left: 0;
 			right: 0;
 			bottom: 90px;
@@ -85,7 +84,7 @@
 		
 		.chart{
 			position: relative;
-			bottom: 180px;
+			bottom: 120px;
 
 		}
 
@@ -99,7 +98,7 @@
 			height: 70px;
 			width: 70px;
 			position: absolute;
-			right: -45px;
+			right: -75px;
 			bottom: 95px;
 			display: none;
 			cursor: pointer;
