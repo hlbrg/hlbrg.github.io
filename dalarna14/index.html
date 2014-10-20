@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- RESOURCES -->
+		<!-- jQuery 2.1.1 -->
+		<script src="jquery-2.1.1.min.js"></script>
+		<link rel="stylesheet" href="normalize.css">
+		<!-- Bootstrap 3.0 CSS -->
+		<link href="bootstrap.min.css" rel="stylesheet">
+		<!-- my scripts -->
+		<script src="app.js"></script>
+
+		<!-- main css -->
+		<link rel="stylesheet" href="main.css">
+		
+		<!-- sweet alert -->
+		<script src="sweet-alert.js"></script> 
+		<link rel="stylesheet" type="text/css" href="sweet-alert.css">
+
+		<!-- styles -->
+		<!-- google font -->
+		<!-- <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'> -->
+		<style>
+		.top-text{
+			text-align: center;
+			font-size: 10rem;
+		}
+		.timeline{
+			margin-top: 13px;
+			background: #577B61;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+		.indalarna{
+			background: #214541;
+		}
+		table{
+			/*width: 100%;*/
+		}
+		table tr th{
+			text-align: center;
+			font-size: 2.5rem;
+			min-width: 160px;
+		}
+		table tr td{
+			padding: 0 !important;
+			margin: 0;
+			height: 110px;
+		}
+		table tr td img{
+			width: 100%;
+			height: 100%;
+		}
+		table tr td div{
+			/*width: 100px;*/
+			padding-top: 5px;
+			z-index: 1000;
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: pink;
+		}
+		table tr td div img{
+			width: 50px;
+			height: 50px;
+			float: left;
+			padding: 2px;
+		}
+		td{
+			position: relative;
+		}
+		</style>
+	</head>
+ 	<!-- END HEAD -->
+
+ 	<!-- BODY -->
+ 	<body>
+		<div class="container">
+			<div class="top-text">
+				Dalarna '14
+			</div>
+			<div class="row">
+				<div class="col-md-12 timeline">
+					<table class="table table-bordered">
+						<tr>
+							<th>man. 22/12</th>
+							<th>tir. 23/12</th>
+							<th>ons. 24/12</th>
+							<th>tor. 25/12</th>
+							<th>fre. 26/12</th>
+							<th>lør. 27/12</th>
+							<th>søn. 28/12</th>
+						</tr>
+						<tr>
+							<td>
+								<img class="carimg" onmouseover="showFamily(event)" onmouseout="hideFamily(event)" src="volvoxc60.jpg">	
+							</td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								<img class="carimg" onmouseover="showFamily(event)" onmouseout="hideFamily(event)" src="fiesta.jpg">	
+							</td>
+							</td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								<img class="carimg" onmouseover="showFamily(event)" onmouseout="hideFamily(event)" src="focusst.jpg">	
+							</td>
+							</td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								<img class="carimg" onmouseover="showFamily(event)" onmouseout="hideFamily(event)" src="seatleon.jpg" alt="">
+							</td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>
+								<img class="carimg" onmouseover="showFamily(event)" onmouseout="hideFamily(event)" src="kiario.jpg" alt="">
+								<div>
+									<img src="https://graph.facebook.com/kim.halberg/picture?type=small&width=50&height=50">
+									<img src="https://graph.facebook.com/lukas.s.halberg/picture?type=small&width=50&height=50">
+									<img src="https://graph.facebook.com/tihalb/picture?type=small&width=50&height=50">
+								</div>
+							</td>
+							<td class="indalarna"></td>
+							<td class="indalarna"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+
+	<!-- SCRIPT -->
+	<script>
+	var cars = {
+		volvo: {
+			danny: 'https://graph.facebook.com/10203503525283568/picture?type=small&width=50&height=50',
+			martin: 'https://graph.facebook.com/martinsander95/picture?type=small&width=50&height=50',
+			kamilla: 'https://graph.facebook.com/kamilla.weiss/picture?type=small&width=50&height=50'
+		},
+		fiesta: {
+			gitte: 'https://graph.facebook.com/gitte.sander1/picture?type=small&width=50&height=50',
+			jan: 'https://graph.facebook.com/hal.janberg/picture?type=small&width=50&height=50'
+		},
+		focus: {
+			michael: 'https://graph.facebook.com/1644026656/picture?type=small&width=50&height=50'
+		},
+		leon: {
+			bo: 'https://graph.facebook.com/bo.halberg.9/picture?type=small&width=50&height=50',
+			vesle: 'https://graph.facebook.com/veslemoy.hellem/picture?type=small&width=50&height=50',
+			jason: 'https://graph.facebook.com/greblah/picture?type=small&width=50&height=50',
+			cornelia: 'https://graph.facebook.com/662336684/picture?type=small&width=50&height=50'
+		},
+		kia: {
+			kim: 'https://graph.facebook.com/kim.halberg/picture?type=small&width=50&height=50',
+			lukas: 'https://graph.facebook.com/lukas.s.halberg/picture?type=small&width=50&height=50',
+			tina: 'https://graph.facebook.com/tihalb/picture?type=small&width=50&height=50'
+		}
+	}
+
+	function showFamily(e){
+		var hoverVar = e.target.style.opacity = '0.3',
+			hoverVar2 = e.target.nextElementSibling.style.display = 'inline-block';
+			
+		// setTimeout(function(){
+		// 	hoverVar = e.target.style.opacity = '1'
+		// 	hoverVar = e.target.nextElementSibling.style.display = 'none';	
+		// }, '3000')
+	}
+	function hideFamily(e){
+		
+	}
+	</script>
+	<!-- END SCRIPT -->
+	</body>
+	<!-- END BODY -->
+</html>
