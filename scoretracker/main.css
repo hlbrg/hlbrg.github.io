@@ -68,17 +68,21 @@
 		}
 		
 		#startButton{
-			font-size: 5rem;
+			font-size: 4rem;
 			position: absolute;
 			left: 0;
 			right: 0;
-			bottom: 90px;
+			bottom: 22px;
+		}
+
+		#small07{
+			font-size: 3rem;
 		}
 		
-		#mtimer{
-			font-size: 8rem;
+		#timer{
+			font-size: 7rem;
 			position: relative;
-			top: 15px;
+			top: -33px;
 			cursor: default;
 		}
 		
@@ -99,16 +103,18 @@
 			width: 70px;
 			position: absolute;
 			right: -75px;
-			bottom: 95px;
+			bottom: 68px;
 			display: none;
 			cursor: pointer;
+			z-index: 10000;
 		}
 
 		.stopBtn span{
 			position: absolute;
 			top: 23px;
-			left: 15px;
+			left: 11px;
 			cursor: pointer;
+			letter-spacing: 2px;
 		}
 
 		.date-div{

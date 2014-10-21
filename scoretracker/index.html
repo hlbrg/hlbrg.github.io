@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- RESOURCES -->
 		<!-- jQuery 2.1.1 -->
 		<script src="jquery-2.1.1.min.js"></script>
@@ -19,9 +20,9 @@
 		<script src="sweet-alert.js"></script> 
 		<link rel="stylesheet" type="text/css" href="sweet-alert.css">
 
-		<!-- http://harshen.github.io/jquery-countdownTimer/ -->
+		<!-- http://harshen.github.io/jquery-countdownTimer/
 		<script type="text/javascript" src="jquery.countdownTimer.js"></script>
-		<!-- <link rel="stylesheet" type="text/css" href="jquery.countdownTimer.css"/> -->
+		<link rel="stylesheet" type="text/css" href="jquery.countdownTimer.css"/> -->
 		
 		<!-- easy-pie-chart -->
 		<script src="jquery.easypiechart.js"></script>
@@ -41,14 +42,14 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-sm-4">
 						<a href="#">
 							<div class="score home-team">
 								<span onclick="countUpHome(event)">0</span>
 							</div>
 						</a>
 					</div>
-					<div class="col-md-4">
+					<div class="col-sm-4">
 						<div class="max-height">
 							<div class="date-div">
 								<span></span>
@@ -56,12 +57,12 @@
 							</div>
 							<span class="hyphen" onclick="clearScore()">-</span>
 							<div class="chart" data-percent="100" data-scale-color="#ffb400">
-								<a href="#" id="startButton" type="btn btn-large"><span onclick="startBtnPress()">START</span></a>
+								<a href="#" id="startButton" type="btn btn-large"><span onclick="startBtnPress()">START</span></br><span id="small07">07:00</span></a>
 								<div class="stopBtn" onclick="restoreStartBtn()"><a href"#"><span>STOP</span></a></div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-sm-4">
 						<a href="#">
 							<div class="score away-team">
 								<span onclick="countUpAway(event)">0</span>
@@ -78,12 +79,7 @@
 	<script>
 
 	var countHome = 0,
-		countAway = 0,
-		homeTeam = document.querySelectorAll('.score span')[0].innerHTML,
-    	awayTeam = document.querySelectorAll('.score span')[1].innerHTML,
-
-    	winner = "",
-    	wrapper = "";
+		countAway = 0;
 
 		function countUpHome(e){
 			if(countHome < 9){
@@ -96,8 +92,7 @@
 				var localText = "10 - " + countAway
 				swal(localText, "til hjemmeholdet!")
 				matchDone();
-			}
-			
+			}	
 		}
 
 		function countDownHome(e){
@@ -120,7 +115,6 @@
 				swal(localText, "til udeholdet!")
 				matchDone()
 			}
-			
 		}
 
 		function countDownAway(e){
@@ -137,14 +131,13 @@
 			document.querySelectorAll('.score span')[1].innerHTML = 0;
 			countHome = 0;
 			countAway = 0;
-			
 		}
+
 		function clearScoreNoSound(){
 			document.querySelectorAll('.score span')[0].innerHTML = 0;
 			document.querySelectorAll('.score span')[1].innerHTML = 0;
 			countHome = 0;
-			countAway = 0;
-			
+			countAway = 0;	
 		}
 
 		function matchDone(){
@@ -153,18 +146,78 @@
 		}
 
 		function startBtnPress(){
-		siteInitSound.playclip();
-		onTimer();
-		timesUp();
-		$('.chart').data('easyPieChart').options.animate.duration = 460000
-		$('.chart').data('easyPieChart').update(0);
-		stopBtn();
-		}
+			siteInitSound.playclip();
+			document.getElementById('startButton').innerHTML = "<div id=\"timer\" onclick=\"timePause()\"><span id=\"minutes\">06:59</span></div>";
+			showStopBtn();
+			
+			function fyrdenaf(){
+				var sec = 419,
+					timer,
+					time,
+					localMin,
+					localSec,
+					timeDiv = document.getElementById("minutes");
 
-		// jquery timer
-		function onTimer() {
-		  	document.getElementById('startButton').innerHTML = '<span id="mtimer" onclick="paused()"></span>';
-			$('#mtimer').countdowntimer({minutes:7,size:'lg'})	
+				function pad(val) {
+				    return val > 9 ? val : "0" + val;
+				}	
+
+				timer = setInterval(function () { // you dont need js var's -> return to original
+				    localMin = pad(parseInt(sec / 60));
+				    localSec = pad(--sec % 60);
+					time = localMin + ":" + localSec;
+				    timeDiv.innerHTML = time;
+					if(timeDiv.innerHTML == '00:30'){
+				    	siteInitSound.playclip();
+				    }else if(timeDiv.innerHTML == '00:10'){
+				    	var startBeep = setInterval(function(){
+				    		siteInitSound.playclip();
+				    	}, 1000)
+
+				    	setTimeout(function(){
+				    		clearInterval(startBeep)
+				    		buzzerSound.playclip();
+				    		document.body.style.backgroundColor = "#E03C31"
+							var timerZero = $('#minutes')
+							setInterval(function(){
+								timerZero.toggle()
+							}, 500)				    		
+				    	}, 10000)
+				    }
+				}, 1000);
+
+				setTimeout(function () {
+				    clearInterval(timer);
+				}, 420000);
+
+				setInterval(function(){
+				var timeDone = sec,
+					fullTime = 419,
+					percentDone = timeDone / fullTime * 100;
+					$('.chart').data('easyPieChart').update(percentDone);
+				}, 1000)				
+			}
+			fyrdenaf();
+			// function fyrdenaf(){
+			// 	var sec = 10;
+			// 	var timer;
+			// 	function pad(val) {
+			// 	    return val > 9 ? val : "0" + val;
+			// 	}					
+			// 	if (!document.querySelectorAll('#timer span')[0].innerHTML == '00' && !document.querySelectorAll('#timer span')[1].innerHTML == '00'){
+			// 			timer = setInterval(function () {
+			// 		    document.getElementById("seconds").innerHTML = pad(--sec % 60);
+			// 		    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60));
+			// 		}, 1000);
+			// 		setTimeout(function () {
+			// 		    clearInterval(timer);
+			// 		}, 11000);
+			// 	} else{
+			// 		console.log('eyyy')
+					
+			// 	}
+			// }
+			// fyrdenaf();
 		}
 
 		function restoreStartBtn(){
@@ -172,9 +225,8 @@
 			stopSound.playclip();
 			
 			$('body').fadeOut('fast', function() {
-				
+				location.reload()
 			});
-			setTimeout(function(){location.reload();}, 200)
 		}
 
 		// easy-pie-chart
@@ -186,8 +238,8 @@
 			    scaleLength: 0, //not showing
 			    lineCap: 'square',
 			    lineWidth: 4,
-			    size: 250,
-			    rotate: 0,
+			    size: 200,
+			    rotate: -0,
 			    animate: {
 			      duration: 1000,
 			      enabled: true
@@ -195,55 +247,13 @@
             });
 
         }
-		easyPieInit();
+		// easyPieInit();
 
-		function stopBtn(){
+		function showStopBtn(){
 			document.querySelector('.stopBtn').style.display = 'block'
 		}
 
-
-		function timesUp(){
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 390000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 410000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 411000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 412000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 413000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 414000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 415000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 416000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 417000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 418000)
-			setTimeout(function(){
-				siteInitSound.playclip();
-			}, 419000)
-			setTimeout(function(){
-				buzzerSound.playclip();
-				document.body.style.backgroundColor = "#E03C31"
-			}, 420000)
-		}
-
-
-		function paused(){
+		function timePause(){
 			alert('PAUSED!')
 		}
 
@@ -252,6 +262,7 @@
 		    var h=today.getHours();
 		    var m=today.getMinutes();
 		    var s=today.getSeconds();
+		    h = checkTime(h);
 		    m = checkTime(m);
 		    s = checkTime(s);
 		    var time = h + ":" + m + ":" + s
@@ -267,49 +278,26 @@
 			}
 		}
 
-			function startDate(){
-				var wkdays = [
-				"mandag",
-				"tirsdag",
-				"onsdag",
-				"torsdag",
-				"fredag",
-				"lørdag",
-				"søndag"]
-				var monthArray = [
-				"januar",
-				"februar",
-				"marts",
-				"april",
-				"maj",
-				"juni",
-				"juli",
-				"august",
-				"september",
-				"oktober",
-				"november",
-				"december"]
-				var dateObj = new Date();
-				var day = dateObj.getDay();
-				var dayString = wkdays[day - 1]
-				var date = dateObj.getDate()
-				var month = dateObj.getMonth()
-				var monthString = monthArray[month]
-				var year = dateObj.getFullYear();
-				var today = dayString + " " + date + ". " + monthString + " " + year + " " + "</br>"
-				document.querySelectorAll('.date-div span')[0].innerHTML = today;
-			}
-		// function checkTime(i) {
-		//     if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
-		//     return i;
-		// }
+		function startDate(){
+			var wkdays = ["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"]
+			var monthArray = ["januar","februar","marts","april","maj","juni","juli","august","september","oktober","november","december"]
+			var dateObj = new Date();
+			var day = dateObj.getDay();
+			var dayString = wkdays[day - 1]
+			var date = dateObj.getDate()
+			var month = dateObj.getMonth()
+			var monthString = monthArray[month]
+			var year = dateObj.getFullYear();
+			var today = dayString + " " + date + ". " + monthString + " " + year + " " + "</br>"
+			document.querySelectorAll('.date-div span')[0].innerHTML = today;
+		}
 
 		window.onload = function(){
 			startPressSound.playclip();
 			startTime();
 			startDate();
+			easyPieInit();
 		}
-
 
 	</script>
 	<!-- END SCRIPT -->
